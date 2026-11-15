@@ -15,6 +15,13 @@ water_level = 10
 plant_health = 10
 game_over = False
 
+message_box.innerText = (
+    "You have taken off into deep space, but you have unfortunately run out of fuel for your rocket!\n"
+    "It is now your job to live on the rocket and maintain it until help comes!\n\n"
+    "You can dispense water at the water dispenser and water your plant to get more food!\n"
+    "Click Collect Materials to fix your rocket!\n\n"
+    "Be careful: your water, food, and plant health go down every 60 seconds!"
+)
 
 
 def trigger_game_over(reason):
@@ -48,6 +55,7 @@ def trigger_game_over(reason):
     )
     document.body.appendChild(overlay)
 
+
 def update_stats():
     stats_box.innerText = (
         f"Food: {food} | Water: {water_level} | Plant Health: {plant_health}"
@@ -58,6 +66,7 @@ def update_stats():
             trigger_game_over("Your food source ran out!")
         elif water_level <= 0:
             trigger_game_over("Your water source ran out!")
+
 
 @when("click", "#gwater_btn")
 async def getmorewater():
@@ -72,10 +81,8 @@ async def getmorewater():
     original_pos = person.style.left
     person.style.left = "3px"
     await asyncio.sleep(0.6)
-
     if game_over:
         return
-
     getwater = window.confirm("Would you like to dispense some water?")
     if getwater:
         message_box.innerText = "Ok! Water dispensed!"
@@ -86,6 +93,7 @@ async def getmorewater():
     await asyncio.sleep(0.6)
     if not game_over:
         person.style.left = original_pos
+
 
 @when("click", "#water-btn")
 async def water_plants():
@@ -99,10 +107,8 @@ async def water_plants():
     water_dispenser.style.display = "flex"
     person.style.left = "1100px"
     await asyncio.sleep(0.6)
-
     if game_over:
         return
-
     if plant_health == 0:
         message_box.innerText = "The plant is dead and cannot be watered!"
     elif water_level > 0:
@@ -112,24 +118,20 @@ async def water_plants():
         message_box.innerText = "You watered the plants!"
     else:
         message_box.innerText = "No water left! Go to the water dispenser."
-
     update_stats()
     await asyncio.sleep(0.6)
-
     if not game_over:
         person.style.left = "500px"
+
 
 async def material_reduction():
     global food, water_level, plant_health
     minutes_passed = 0
-
     while not game_over:
         await asyncio.sleep(60)
         if game_over:
             break
-
         minutes_passed += 1
-
         if minutes_passed == 2:
             message_box.innerText = (
                 "Oh NO your food source has depleted and so "
@@ -145,7 +147,6 @@ async def material_reduction():
                 water_level -= 1
             if plant_health > 0:
                 plant_health -= 1
-
         update_stats()
 
         if not game_over:
@@ -154,6 +155,7 @@ async def material_reduction():
             if plant_health == 0:
                 plant.style.backgroundColor = "#b5a788"
                 message_box.innerText = "Oh no your plant died! Your plant cannot be revived..."
+                update_stats()
 
-update_stats()
+
 asyncio.create_task(material_reduction())
