@@ -64,7 +64,6 @@ async def collect_materials(event):
         show_text("Please enter numbers only! Try Again!")
 
     finally:
-        # Always resets the scene and character position when finished
         person.style.left = "48%"
         mine.style.display = "none"
         body.style.backgroundImage = "none"
