@@ -182,6 +182,26 @@ async def material_reduction():
         if not game_over:
             if minutes_passed == 5:
                 trigger_victory()
+                message_box.innerText= "ITS TIME FOR A QUIZ!"
+                   await asyncio.sleep(0.1)
+                   global count
+                   q_one = window.prompt("Is quartz on Mars? (True or False):")
+                   if q_one == "True":
+                       count = count + 1    
+                   q_two = window.prompt("Are Molecules something you can use to build? (True or False):")
+                   if q_two == "False":
+                       count = count + 1
+                   q_three = window.prompt("Can rockets be 100 pounds? (True or False):")
+                   if q_three == "False":
+                        count = count + 1
+                   q_four = window.prompt("Do other planets have Regolith that aren't Mars or the Moon? (True or False)")
+                   if q_four == "True":
+                       count = count + 1
+                   q_five = window.prompt("Do rockets need boosters? (True or False:")
+                   if q_five == "True":
+                       count = count + 1
+                   percentage = count * 20
+                message_box.innertext = "You scored a " + percentage " percent!"
             if food < 2:
                 message_box.innerText = "WARNING: You are low on food! Complete more tasks!"
             if plant_health == 0:
