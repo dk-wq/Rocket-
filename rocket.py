@@ -156,7 +156,4 @@ async def material_reduction():
                 plant.style.backgroundColor = "#b5a788"
                 message_box.innerText = "Oh no your plant died! Your plant cannot be revived..."
                 update_stats()
-
-        if minutes_passed = 5:
-            message_box.innerText = "You did it! Help has arrived and you can now get out of here!"
 asyncio.create_task(material_reduction())
