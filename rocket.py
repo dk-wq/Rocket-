@@ -13,6 +13,7 @@ mine = document.getElementById("mine")
 food = 10
 water_level = 10
 plant_health = 10
+count = 0
 game_over = False
 
 message_box.innerText = (
@@ -22,6 +23,42 @@ message_box.innerText = (
     "Click Collect Materials to fix your rocket!\n\n"
     "Be careful: your water, food, and plant health go down every 60 seconds!"
 )
+
+
+async def run_quiz(overlay):
+    global count
+    count = 0
+    message_box.innerText = "IT'S TIME FOR A QUIZ!"
+    # Short pause so the Game Over / Victory overlay renders before prompts appear
+    await asyncio.sleep(0.3)
+
+    q_one = window.prompt("Is quartz on Mars? (True or False):")
+    if q_one and q_one.strip().capitalize() == "True":
+        count += 1
+
+    q_two = window.prompt("Are Molecules something you can use to build? (True or False):")
+    if q_two and q_two.strip().capitalize() == "False":
+        count += 1
+
+    q_three = window.prompt("Can rockets be 100 pounds? (True or False):")
+    if q_three and q_three.strip().capitalize() == "False":
+        count += 1
+
+    q_four = window.prompt("Do other planets have Regolith that aren't Mars or the Moon? (True or False):")
+    if q_four and q_four.strip().capitalize() == "True":
+        count += 1
+
+    q_five = window.prompt("Do rockets need boosters? (True or False):")
+    if q_five and q_five.strip().capitalize() == "True":
+        count += 1
+
+    percentage = count * 20
+    score_text = f"You scored {percentage} percent!"
+    message_box.innerText = score_text
+
+    score_el = overlay.querySelector("#quiz-score")
+    if score_el:
+        score_el.innerText = score_text
 
 
 def trigger_game_over(reason):
@@ -50,16 +87,18 @@ def trigger_game_over(reason):
         f"<div>"
         f"<h1>GAME OVER</h1>"
         f"<p>{reason}</p>"
+        f"<p id='quiz-score' style='font-size:1.5rem; color:#ffd700;'></p>"
         f"<p style='font-size:1rem;'>Refresh the page to play again.</p>"
         f"</div>"
     )
     document.body.appendChild(overlay)
+    asyncio.create_task(run_quiz(overlay))
+
 
 def trigger_victory(reason="You fixed your rocket and survived until help arrived!"):
     global game_over
     if game_over:
         return
-
     game_over = True
     message_box.innerText = f"VICTORY: {reason}"
 
@@ -82,10 +121,14 @@ def trigger_victory(reason="You fixed your rocket and survived until help arrive
         f"<div>"
         f"<h1>VICTORY!</h1>"
         f"<p>{reason}</p>"
+        f"<p id='quiz-score' style='font-size:1.5rem; color:#ffd700;'></p>"
         f"<p style='font-size:1rem;'>Refresh the page to play again.</p>"
         f"</div>"
     )
     document.body.appendChild(overlay)
+    asyncio.create_task(run_quiz(overlay))
+
+
 def update_stats():
     stats_box.innerText = (
         f"Food: {food} | Water: {water_level} | Plant Health: {plant_health}"
@@ -96,6 +139,12 @@ def update_stats():
             trigger_game_over("Your food source ran out!")
         elif water_level <= 0:
             trigger_game_over("Your water source ran out!")
+        else:
+            if plant_health == 0:
+                plant.style.backgroundColor = "#b5a788"
+                message_box.innerText = "Oh no your plant died! Your plant cannot be revived..."
+            elif food < 2:
+                message_box.innerText = "WARNING: You are low on food! Complete more tasks!"
 
 
 @when("click", "#gwater_btn")
@@ -162,6 +211,7 @@ async def material_reduction():
         if game_over:
             break
         minutes_passed += 1
+
         if minutes_passed == 2:
             message_box.innerText = (
                 "Oh NO your food source has depleted and so "
@@ -177,35 +227,13 @@ async def material_reduction():
                 water_level -= 1
             if plant_health > 0:
                 plant_health -= 1
+
         update_stats()
 
         if not game_over:
             if minutes_passed == 5:
                 trigger_victory()
-                message_box.innerText= "ITS TIME FOR A QUIZ!"
-                   await asyncio.sleep(0.1)
-                   global count
-                   q_one = window.prompt("Is quartz on Mars? (True or False):")
-                   if q_one == "True":
-                       count = count + 1    
-                   q_two = window.prompt("Are Molecules something you can use to build? (True or False):")
-                   if q_two == "False":
-                       count = count + 1
-                   q_three = window.prompt("Can rockets be 100 pounds? (True or False):")
-                   if q_three == "False":
-                        count = count + 1
-                   q_four = window.prompt("Do other planets have Regolith that aren't Mars or the Moon? (True or False)")
-                   if q_four == "True":
-                       count = count + 1
-                   q_five = window.prompt("Do rockets need boosters? (True or False:")
-                   if q_five == "True":
-                       count = count + 1
-                   percentage = count * 20
-                message_box.innertext = "You scored a " + percentage " percent!"
-            if food < 2:
-                message_box.innerText = "WARNING: You are low on food! Complete more tasks!"
-            if plant_health == 0:
-                plant.style.backgroundColor = "#b5a788"
-                message_box.innerText = "Oh no your plant died! Your plant cannot be revived..."
-                update_stats()
+
+
+update_stats()
 asyncio.create_task(material_reduction())
