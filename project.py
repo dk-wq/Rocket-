@@ -1,6 +1,6 @@
 import asyncio
 from pyscript import document, when, window
-
+// AI assisted Debugging
 msg = document.querySelector("#game-message")
 body = document.querySelector("body")
 plant = document.getElementById("plants")
