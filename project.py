@@ -2,7 +2,7 @@ import asyncio
 from pyscript import document, when, window
 
 msg = document.querySelector("#game-message")
-body = document.body
+body = document.querySelector("body")
 plant = document.getElementById("plants")
 water_dispenser = document.querySelector(".gray-block")
 mine = document.getElementById("mine")
