@@ -15,15 +15,7 @@ water_level = 10
 plant_health = 10
 game_over = False
 
-message_box.innerText = (
-    "You have taken off into deep space, but you have unfortunately run out of"
-    " fuel for your rocket! It is now your job to live on the rocket and"
-    " maintain until help comes!"
-    "You could Dispense water at the water dispenser"
-    " and you could water your plant to get more food!"
-    " Click get more materials to fix your rocket!"
-    "Becarefull, your water, food and plant health goes down every 60 seconds!"
-)
+
 
 def trigger_game_over(reason):
     global game_over
