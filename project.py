@@ -67,7 +67,7 @@ async def collect_materials(event):
         # Always resets the scene and character position when finished
         person.style.left = "48%"
         mine.style.display = "none"
-        body.style.backgroundImage = "url('https://ichef.bbci.co.uk/images/ic/480xn/p02764kc.jpg.webp')"
+        body.style.backgroundImage = "none"
         await asyncio.sleep(0.1)
         plant.style.display = "flex"
         water_dispenser.style.display = "flex"
