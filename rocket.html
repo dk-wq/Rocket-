@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Rocket Simulation</title>
+  <link rel="stylesheet" href="https://pyscript.net/releases/2026.7.3/core.css" />
+  <script type="module" src="https://pyscript.net/releases/2026.7.3/core.js"></script>
+  <style>
+    body {
+      background-color: #0f172a;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 100vh;
+      margin: 0;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      color: #FF0000;
+    }
+
+    #game-message {
+      max-width: 400px;
+      text-align: center;
+      margin-bottom: 10px;
+      color: #38bdf8;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    button {
+      background-color: #38bdf8;
+      color: #0f172a;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #7dd3fc;
+    }
+
+    #person {
+      position: absolute;
+      bottom: 20px;
+      left: 575px;
+      width: 40px;
+      height: 95px;
+      transition: left 0.5s ease;
+    }
+
+    #person .head {
+      width: 30px;
+      height: 30px;
+      background-color: #e2e8f0;
+      border-radius: 50%;
+      margin: 0 auto 4px;
+    }
+
+    #person .body {
+      width: 36px;
+      height: 60px;
+      background-color: #94a3b8;
+      border-radius: 10px 10px 4px 4px;
+      margin: 0 auto;
+    }
+
+    #plants {
+      position: absolute;
+      bottom: 20px;
+      right: 60px;
+      width: 70px;
+      height: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    #plants .leaves {
+      width: 50px;
+      height: 45px;
+      background-color: #22c55e;
+      border-radius: 50% 50% 10% 10%;
+    }
+
+    #plants .pot {
+      width: 60px;
+      height: 30px;
+      background-color: #64748b;
+      border-radius: 4px;
+    }
+
+    .gray-block {
+      width: 90px;
+      height: 105px;
+      background-color: #888888;
+      border: 2px solid #555555;
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      font-weight: 900;
+      font-size: 14px;
+      line-height: 1.1;
+      padding: 4px;
+      box-sizing: border-box;
+    }
+    #mine {
+      width: 90px;
+      height: 100px;
+      bottom: 20px;
+      right: 20px;
+      align-items: center;
+      text-align: center;
+      color: #FFFFFF;
+      font-family: Arial, sans-serif;
+      font-weight: 900;
+      font-size: 14px;
+      line-height:1.1;
+      padding: 4px;
+      background-color: #000000;
+      display: none;
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <h1>The Rocket Simulation</h1>
+  <p id="game-message">Searching for Signals...</p>
+  <p id="stats">Food: 10 | Water: 10 | Plant Health: 10</p>
+
+  <div class="button-row">
+    <button id="water-btn">Water Plants</button>
+    <button id="collect-btn">Collect Materials</button>
+    <button id="gwater_btn">Get more Water</button>
+  </div>
+
+  <div class="ship-bay">
+    <div class="gray-block">WATER DISPENSER</div>
+    <div id="person">
+      <div class="head"></div>
+      <div class="body"></div>
+    </div>
+    <div id="plants">
+      <div class="leaves"></div>
+      <div class="pot"></div>
+    </div>
+    <div id="mine">Mine</div>
+  </div>
+
+  <script type="py" src="./rocket.py"></script>
+  <script type="py" src="./project.py"></script>
+  <scirpt type="py" src="./quizgame.py"></scirpt>
+</body>
+</html>
