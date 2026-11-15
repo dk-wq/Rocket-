@@ -216,7 +216,7 @@ async def material_reduction():
             message_box.innerText = (
                 "Oh NO your food source has depleted and so "
                 "has your water supply because your crew member "
-                "is a biggie and had a huge lunch!"
+                "had a huge lunch!"
             )
             food = max(0, food - 5)
             water_level = max(0, water_level - 5)
