@@ -18,7 +18,7 @@ def show_text(text):
 async def collect_materials(event):
     show_text("Collecting materials...")
     mine.style.display = "flex"
-    body.style.backgroundImage = "url('https://unsplash.com')"
+    body.style.backgroundImage = "url('https://images.unsplash.com/photo-1447433589675-4aaa569f3e05?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D')"
     body.style.backgroundSize = "cover"
     body.style.backgroundPosition = "center"
     await asyncio.sleep(0.6)
