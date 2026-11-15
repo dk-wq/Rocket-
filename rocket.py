@@ -1,7 +1,7 @@
 import asyncio
 import random
 from pyscript import document, when, window
-
+// AI assisted Debugging
 person = document.getElementById("person")
 message_box = document.getElementById("game-message")
 stats_box = document.getElementById("stats")
