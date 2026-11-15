@@ -55,7 +55,37 @@ def trigger_game_over(reason):
     )
     document.body.appendChild(overlay)
 
+def trigger_victory(reason="You fixed your rocket and survived until help arrived!"):
+    global game_over
+    if game_over:
+        return
 
+    game_over = True
+    message_box.innerText = f"VICTORY: {reason}"
+
+    overlay = document.createElement("div")
+    overlay.style.position = "fixed"
+    overlay.style.top = "0"
+    overlay.style.left = "0"
+    overlay.style.width = "100vw"
+    overlay.style.height = "100vh"
+    overlay.style.backgroundColor = "rgba(0, 80, 30, 0.75)"
+    overlay.style.color = "white"
+    overlay.style.display = "flex"
+    overlay.style.flexDirection = "column"
+    overlay.style.justifyContent = "center"
+    overlay.style.alignItems = "center"
+    overlay.style.fontSize = "2rem"
+    overlay.style.textAlign = "center"
+    overlay.style.zIndex = "9999"
+    overlay.innerHTML = (
+        f"<div>"
+        f"<h1>VICTORY!</h1>"
+        f"<p>{reason}</p>"
+        f"<p style='font-size:1rem;'>Refresh the page to play again.</p>"
+        f"</div>"
+    )
+    document.body.appendChild(overlay)
 def update_stats():
     stats_box.innerText = (
         f"Food: {food} | Water: {water_level} | Plant Health: {plant_health}"
@@ -150,6 +180,8 @@ async def material_reduction():
         update_stats()
 
         if not game_over:
+            if minutes_passed == 5:
+                trigger_victory()
             if food < 2:
                 message_box.innerText = "WARNING: You are low on food! Complete more tasks!"
             if plant_health == 0:
