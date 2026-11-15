@@ -2,7 +2,12 @@ import asyncio
 from pyscript import document, when, window
 
 msg = document.querySelector("#game-message")
-msg.innerText = "You have taken off into deep space, but you have unfortunately run out of fuel! Your job is to maintain the ship and feed yourself and your fellow crew members!"
+msg.innerText = ("You have taken off into deep space, but you have unfortunately run out of fuel!" 
+"Your job is to maintain the ship and feed yourself and your fellow crew members!"
+"You could Dispense water at the water dispenser"
+" and you could water your plant to get more food!"
+" Click get more materials to fix your rocket!"
+"Be carefull, your water, food and plant health goes down every 60 seconds!")
 
 body = document.body
 plant = document.getElementById("plants")
